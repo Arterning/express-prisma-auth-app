@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
     // 参数2: 密钥
     // 参数3: token的有效时间: 60, "2 days", "10h", "7d"
     const token = jwt.sign(
-      { user: { name: 'zs', password: 123 } },
+      { user },
       SECRET_KEY,
       { expiresIn: '3h' }
     )
@@ -53,7 +53,7 @@ router.get('/getInfo', (req, res) => {
   res.send({
       status: 200,
       message: 'success',
-      data: req.user,
+      data: req.auth,
   })
 })
 
