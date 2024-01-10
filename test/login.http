@@ -1,0 +1,13 @@
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email":"xiaoming@ning.com",
+    "pass":"xiaoming"
+}
+
+
+###
+GET http://localhost:3000/getInfo
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJ6cyIsInBhc3N3b3JkIjoxMjN9LCJpYXQiOjE3MDQ4Nzc1NTUsImV4cCI6MTcwNDg4ODM1NX0.DIKGOxym0nIk5G3AMheVh1hzxb3epFpCEsjtnvCzL_c

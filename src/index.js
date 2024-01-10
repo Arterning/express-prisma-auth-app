@@ -1,8 +1,12 @@
 const apiRouter = require('./routes/api')
 const postRouter = require('./routes/post')
 const userRouter = require('./routes/user')
+const loginRouter = require('./routes/login')
 const express = require('express')
 const { loggingMiddleware, errorMiddleware } = require('./lib/middleware')
+var { expressjwt: jwt } = require("express-jwt");
+const SECRET_KEY = 'login2021'
+
 
 /**
  * 对app的操作顺序很重要
@@ -11,9 +15,17 @@ const { loggingMiddleware, errorMiddleware } = require('./lib/middleware')
  */
 const app = express()
 app.use(loggingMiddleware, errorMiddleware)
+app.use(
+  jwt({
+      secret: SECRET_KEY,
+      algorithms: ['HS256'], // 使用何种加密算法解析
+  }).unless({ path: ['/login', '/signup'] }) // 登录页无需校验
+)
+
 app.use('/api', apiRouter)
 app.use('/', postRouter)
 app.use('/', userRouter)
+app.use('/', loginRouter)
 app.use(express.json())
 app.use(express.static('public'));
 

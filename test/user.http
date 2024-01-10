@@ -6,8 +6,9 @@ POST {{host}}/signup
 Content-Type: application/json
 
 {
-    "name":"小慧",
-    "email":"xiaohui@ning.com"
+    "name":"xiaoming",
+    "pass":"xiaoming",
+    "email":"xiaoming@ning.com"
 }
 
 ###
