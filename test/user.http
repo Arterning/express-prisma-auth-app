@@ -1,0 +1,14 @@
+@host = http://localhost:3000
+
+
+### register
+POST {{host}}/signup
+Content-Type: application/json
+
+{
+    "name":"小慧",
+    "email":"xiaohui@ning.com"
+}
+
+###
+GET {{host}}/users

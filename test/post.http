@@ -1,0 +1,14 @@
+@host = http://localhost:3000
+
+###
+POST {{host}}/post
+Content-Type: application/json
+
+{ 
+  "title":"First Post",
+  "content": "Good job",
+  "authorEmail":"ning@ning.com"
+}
+
+###
+GET {{host}}/post/list
