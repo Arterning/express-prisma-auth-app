@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "migrate":"npx prisma migrate dev --name"
   },
   "dependencies": {
     "@prisma/client": "5.2.0",

@@ -13,6 +13,8 @@ model User {
   pass  String?
   name  String?
   posts Post[]
+  projects Project[]
+  comments Comment[]
 }
 
 model Post {
@@ -25,4 +27,35 @@ model Post {
   viewCount Int      @default(0)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+}
+
+
+model Project {
+  id        String      @id @default(uuid())
+  name      String
+  description String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime?
+  author    User?       @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  comments  Comment[]
+}
+
+model Comment {
+  id        String      @id @default(uuid())
+  content   String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime?
+  author    User?       @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  project   Project?    @relation(fields: [projectId], references: [id])
+  projectId String?
+}
+
+
+model Media {
+  id      Int      @id @default(autoincrement())
+  name     String?
+  url     String
+  pid     String
 }
