@@ -15,17 +15,22 @@ const SECRET_KEY = 'login2021'
  */
 const app = express()
 app.use(loggingMiddleware, errorMiddleware)
+
+
 app.use(
   jwt({
       secret: SECRET_KEY,
       algorithms: ['HS256'], // 使用何种加密算法解析
-  }).unless({ path: ['/login', '/signup'] }) // 登录页无需校验
+  }).unless({ path: ['/login', '/signup', '/'] }) // 登录页无需校验
 )
 
 app.use('/api', apiRouter)
 app.use('/', postRouter)
 app.use('/', userRouter)
-app.use('/', loginRouter)
+app.use('/',loginRouter)
+app.use('/', function(req, res) {
+  res.send('Hello World Good Good!')
+})
 app.use(express.json())
 app.use(express.static('public'));
 
