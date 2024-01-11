@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/index.js",
+    "deploy":"pm2 start src/index.js --name app --watch",
     "dev": "nodemon src/index.js",
     "migrate": "npx prisma migrate dev --name"
   },

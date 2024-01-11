@@ -2,6 +2,7 @@ const apiRouter = require('./routes/api')
 const postRouter = require('./routes/post')
 const userRouter = require('./routes/user')
 const loginRouter = require('./routes/login')
+const projectRouter = require('./routes/project')
 const express = require('express')
 const { loggingMiddleware, errorMiddleware } = require('./lib/middleware')
 var { expressjwt: jwt } = require("express-jwt");
@@ -27,9 +28,10 @@ app.use(
 app.use('/api', apiRouter)
 app.use('/', postRouter)
 app.use('/', userRouter)
-app.use('/',loginRouter)
+app.use('/', loginRouter)
+app.use('/', projectRouter)
 app.use('/', function(req, res) {
-  res.send('Hello World Good Good!')
+  res.send('Hello World Good Good Morning!')
 })
 app.use(express.json())
 app.use(express.static('public'));
