@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #333;
+        }
+
+        button {
+            padding: 10px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            background-color: #322;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-start;
+            gap: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+        }
+    </style>
+    <script>
+        const host = 'http://localhost:3000'
+        const clearToken = () => {
+            localStorage.removeItem('token')
+            sessionStorage.removeItem('token')
+        }
+
+        const getPosts = () => {
+            //delete the div that id is postData
+            document.getElementById('postData')?.remove()
+            //show loading div
+            document.getElementById('loading').style.display = 'block'
+            try {
+                fetch(`${host}/post/list`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                }).then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        //create div element
+                        const div = document.createElement('div')
+                        //set the div id is postData
+                        div.id = 'postData'
+                        div.innerHTML = JSON.stringify(data)
+                        //append div into root
+                        document.getElementById('root').appendChild(div)
+    
+                        document.getElementById('loading').style.display = 'none'
+                    })
+            } catch (error) {
+                alert(error)
+            }
+        }
+
+        const getProjects = () => {
+            document.getElementById('projectData')?.remove()
+            //show loading div
+            document.getElementById('loading').style.display = 'block'
+            fetch(`${host}/project`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    const div = document.createElement('div')
+                    div.id = 'projectData'
+                    div.innerHTML = JSON.stringify(data)
+                    document.getElementById('root').appendChild(div)
+
+                    document.getElementById('loading').style.display = 'none'
+                })
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <button>
+            <a href="./menu-1.html">
+                Menu 1
+            </a>
+        </button>
+        <button>
+            <a href="./menu-2.html">
+                Menu 2
+            </a>
+        </button>
+    </div>
+
+    <div class="navbar">
+        <button onclick="fetch(`${host}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: 'xiaoming@ning.com', pass: 'xiaoming' })
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data);
+            const { token } = data
+            // save token to local storage
+            localStorage.setItem('token', token)
+            sessionStorage.setItem('token', token)
+        })">login</button>
+        <button onclick="clearToken()">
+            logout
+        </button>
+        <button onclick="getPosts()">
+            getPosts
+        </button>
+        <button onclick="getProjects()">
+            getProjects
+        </button>
+
+        
+    </div>
+
+    <div id="root" style="padding: 10px;">
+        <div id="loading" style="display: none;">
+            Loading
+        </div>
+    </div>
+    
+</body>
+</html>

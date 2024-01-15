@@ -3,6 +3,8 @@ const postRouter = require('./routes/post')
 const userRouter = require('./routes/user')
 const loginRouter = require('./routes/login')
 const projectRouter = require('./routes/project')
+const  cors = require('cors');
+
 const express = require('express')
 const { loggingMiddleware, errorMiddleware } = require('./lib/middleware')
 var { expressjwt: jwt } = require("express-jwt");
@@ -16,7 +18,7 @@ const SECRET_KEY = 'login2021'
  */
 const app = express()
 app.use(loggingMiddleware, errorMiddleware)
-
+app.use(cors());
 
 app.use(
   jwt({
